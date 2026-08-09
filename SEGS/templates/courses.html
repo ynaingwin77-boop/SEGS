@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block title %}Our Courses - YHA Class{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-uppercase" style="color: #111111; letter-spacing: 0.5px;">
+                {% if active_subject %}Courses in "{{ active_subject.name }}"{% else %}Our Available Courses{% endif %}
+            </h2>
+            <div class="mx-auto rounded mt-2" style="width: 50px; height: 4px; background-color: var(--primary-brand, #6561cc);"></div>
+        </div>
+
+        {% if all_subjects %}
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+            <a href="{% url 'courses' %}" class="btn btn-sm rounded-pill px-3 {% if not active_subject %}text-white{% else %}btn-outline-secondary{% endif %}" style="{% if not active_subject %}background-color: var(--primary-brand, #6561cc);{% endif %} font-size: 13px;">All Courses</a>
+            {% for subject in all_subjects %}
+                <a href="{% url 'courses_by_subject' subject.subject_id %}" class="btn btn-sm rounded-pill px-3 {% if active_subject.subject_id == subject.subject_id %}text-white{% else %}btn-outline-secondary{% endif %}" style="{% if active_subject.subject_id == subject.subject_id %}background-color: var(--primary-brand, #6561cc);{% endif %} font-size: 13px;">{{ subject.name }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            {% for course in courses %}
+            <div class="col">
+                <div class="detail-course-card">
+                    <div>
+                        <span class="badge px-3 py-2 rounded-pill fw-bold" style="background-color: #3b82f6; font-size: 12px; letter-spacing: 0.5px;">cs-00{{ course.course_id }}</span>
+                        <h4 class="course-title mt-2 fw-bold text-uppercase" style="font-size: 20px; color: #111111;">{{ course.name }}</h4>
+                        <p class="course-desc text-muted" style="font-size: 14px; line-height: 1.6;">{{ course.description|default:"No description available yet." }}</p>
+                        {% if course.subjects.all %}
+                        <div class="d-flex flex-wrap gap-1 mb-2">
+                            {% for subject in course.subjects.all %}
+                                <a href="{% url 'courses_by_subject' subject.subject_id %}" class="badge rounded-pill text-decoration-none" style="background-color: #eef0f5; color: #555555; font-weight: 500; font-size: 11px;">{{ subject.name }}</a>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="info-table">
+                            <div class="info-row">
+                                <span class="info-label">Period:</span>
+                                <span class="info-value">{{ course.period }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Starts:</span>
+                                <span class="info-value">{{ course.start_date|date:"M d, Y"|default:"TBA" }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Available Seats:</span>
+                                <span class="info-value text-primary">{{ course.seats_left }} / {{ course.seats_limit }} Seats left</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Course Fee:</span>
+                                <span class="info-value text-success">${{ course.fees }}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Instructor:</span>
+                                <span class="info-value" style="color: #111111;">
+                                    {% if course.instructor %}
+                                        <button type="button"
+                                                class="btn btn-link p-0 fw-bold text-decoration-none"
+                                                style="color: #3b82f6;"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#instructorModal-{{ course.instructor.instructor_id }}">
+                                            {{ course.instructor.name }}
+                                        </button>
+                                    {% else %}
+                                        To Be Announced
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        <a href="{% url 'course_enrollment' %}" class="btn btn-enroll-now text-center">Enroll now</a>
+                    </div>
+                </div>
+            </div>
+
+            {% if course.instructor %}
+            <div class="modal fade" id="instructorModal-{{ course.instructor.instructor_id }}" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="border-radius: 20px; border: none;">
+                  <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold">{{ course.instructor.name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body pt-2">
+                    <div class="info-row">
+                        <span class="info-label">Email:</span>
+                        <span class="info-value">{{ course.instructor.email }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Phone:</span>
+                        <span class="info-value">{{ course.instructor.phone }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Gender:</span>
+                        <span class="info-value">{{ course.instructor.get_gender_display }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+            {% empty %}
+            <div class="col-12 text-center text-muted my-5">
+                <p>{% if active_subject %}No courses found for "{{ active_subject.name }}" yet.{% else %}No courses available right now.{% endif %}</p>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - YHA Class</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .login-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            border: 1px solid #edf0f5;
+            width: 100%;
+            max-width: 450px;
+        }
+        .form-control {
+            border-radius: 12px;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            font-size: 14px;
+        }
+        .form-control:focus {
+            border-color: var(--primary-brand, #6561cc);
+            box-shadow: 0 0 0 0.25rem rgba(101, 97, 204, 0.15);
+        }
+        .btn-login {
+            background-color: var(--primary-brand, #6561cc);
+            color: white !important;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 14px;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+            transition: background-color 0.2s;
+        }
+        .btn-login:hover { background-color: #534eb3; }
+        .form-label { font-size: 14px; font-weight: 500; color: #495057; }
+    </style>
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-3 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4 text-uppercase tracking-wide" href="{% url 'home' %}" style="color: var(--primary-brand, #6561cc);">
+                YHA CLASS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav mx-auto gap-2">
+                    <a class="nav-link px-3" href="{% url 'home' %}">Home</a>
+                    <a class="nav-link px-3" href="{% url 'about' %}">About</a>
+                    <a class="nav-link px-3" href="{% url 'enrollment' %}">Enrollment</a>
+                    <a class="nav-link px-3" href="{% url 'courses' %}">Courses</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container login-container">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <h3 class="fw-bold" style="color: #111111;">Sign In to EduPortal</h3>
+                <div class="mx-auto rounded mt-2" style="width: 40px; height: 3px; background-color: var(--primary-brand, #6561cc);"></div>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                </div>
+
+                <button type="submit" class="btn btn-login">LOGIN</button>
+            </form>
+
+            <p class="text-center mt-3" style="font-size: 14px;">
+                <a href="{% url 'forgot_password' %}" style="color: var(--primary-brand, #6561cc);">Forgot password?</a>
+            </p>
+
+            <p class="text-center text-muted mt-3" style="font-size: 14px;">
+                Don't have an account? <a href="{% url 'register' %}" style="color: var(--primary-brand, #6561cc);">Create one</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

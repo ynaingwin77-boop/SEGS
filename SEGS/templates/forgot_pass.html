@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Forgot Password - YHA Class{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="mx-auto" style="max-width: 450px;">
+        <div class="bg-white rounded-4 shadow-sm p-4 border">
+            <h4 class="fw-bold text-center mb-3">Reset Your Password</h4>
+            <p class="text-muted text-center" style="font-size: 14px;">
+                Enter your email and we'll send you a link to reset your password.
+            </p>
+
+            <form method="POST" action="{% url 'forgot_password' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label" style="font-size: 14px;">Email Address</label>
+                    <input type="email" class="form-control" name="email" placeholder="you@example.com" required>
+                </div>
+                <button type="submit" class="btn text-white w-100 rounded-pill" style="background-color: var(--primary-brand, #6561cc);">Send Reset Link</button>
+            </form>
+
+            <p class="text-center text-muted mt-3" style="font-size: 14px;">
+                <a href="{% url 'login' %}" style="color: var(--primary-brand, #6561cc);">Back to Sign In</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

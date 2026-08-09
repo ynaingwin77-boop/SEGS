@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Course Enrollment - YHA Class{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+
+        <div class="d-flex justify-content-start mb-4" style="max-width: 600px; margin: 0 auto;">
+            <a href="{% url 'courses' %}" class="btn-exit-custom">← Exit</a>
+        </div>
+
+        <div class="enroll-card">
+
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-uppercase" style="color: #111111; letter-spacing: 0.5px; font-size: 26px;">Course Enrollment</h2>
+                <div class="mx-auto rounded mt-2" style="width: 50px; height: 4px; background-color: var(--primary-brand, #6561cc);"></div>
+            </div>
+
+            <div class="payment-info-box mb-4 shadow-sm">
+                <div class="fw-bold" style="font-size: 14px; opacity: 0.9; letter-spacing: 0.3px;">Kpay/Wave pay transfer info</div>
+                <div class="fw-bold mt-1" style="font-size: 18px; letter-spacing: 0.5px;">Name: UYHA | 09*********</div>
+            </div>
+
+            <form method="POST" action="{% url 'course_enrollment' %}">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label-custom">Select Your Course</label>
+                    <select class="form-select form-control-custom" name="course_id" required>
+                        <option value="" selected disabled>-- Choose a course --</option>
+                        {% for course in courses %}
+                            <option value="{{ course.course_id }}">{{ course.name }} (${{ course.fees }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label-custom">Full Name</label>
+                    <input type="text" class="form-control form-control-custom" value="{{ current_student.full_name }}" readonly>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label-custom">Email</label>
+                    <input type="email" class="form-control form-control-custom" value="{{ current_student.email }}" readonly>
+                </div>
+
+                <button type="submit" class="btn btn-enroll-submit">ENROLL</button>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

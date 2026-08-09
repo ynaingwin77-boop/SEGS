@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block title %}My Enrollments - YHA Class{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+
+        <div class="mb-5">
+            <h2 class="fw-bold text-uppercase" style="color: #111111; letter-spacing: 0.5px;">My Enrollments</h2>
+            <p class="text-muted mb-0" style="font-size: 14px;">Welcome back, {{ current_student.full_name|default:current_student.name }} (#{{ current_student.student_id }})</p>
+            <div class="rounded mt-2" style="width: 50px; height: 4px; background-color: var(--primary-brand, #6561cc);"></div>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="dashboard-stat-card">
+                    <div class="stat-label">Enrolled Courses</div>
+                    <div class="stat-value" style="color: var(--primary-brand, #6561cc);">{{ total_courses }} Course{{ total_courses|pluralize }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-stat-card">
+                    <div class="stat-label">Average Score</div>
+                    <div class="stat-value text-success">
+                        {% if overall_average %}{{ overall_average }} / 100{% else %}No scores yet{% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-stat-card">
+                    <div class="stat-label">Pending Courses</div>
+                    <div class="stat-value text-dark">{{ pending_count }} Course{{ pending_count|pluralize }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-section-card mb-4">
+            <h5 class="fw-bold mb-4 text-secondary" style="font-size: 16px; letter-spacing: 0.3px;">My Enrollments</h5>
+
+            <div class="table-responsive">
+                <table class="table custom-table table-hover mb-0 text-center">
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course Name</th>
+                            <th>Period</th>
+                            <th>Enrollment Status</th>
+                            <th>Grading Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in enrollment_rows %}
+                        <tr>
+                            <td class="fw-bold text-secondary">cs-00{{ row.course.course_id }}</td>
+                            <td class="fw-semibold text-start px-4">{{ row.course.name }}</td>
+                            <td>{{ row.course.period }}</td>
+                            <td>
+                                {% if row.approval_status == "Approved" %}
+                                    <span class="status-active text-uppercase">Approved</span>
+                                {% elif row.approval_status == "Rejected" %}
+                                    <span class="text-danger fw-bold text-uppercase">Rejected</span>
+                                {% else %}
+                                    <span class="status-pending text-uppercase">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if row.has_grades %}
+                                    <span class="status-active text-uppercase">Graded</span>
+                                {% else %}
+                                    <span class="status-pending text-uppercase">Not graded yet</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <form method="POST" action="{% url 'unenroll_course' row.enrollment_id %}" onsubmit="return confirm('Unenroll from {{ row.course.name }}? This cannot be undone.');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3" style="font-size: 12px;">Unenroll</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-muted py-4">You haven't enrolled in any courses yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="dashboard-section-card">
+            <h5 class="fw-bold mb-4 text-secondary" style="font-size: 16px; letter-spacing: 0.3px;">My Grades</h5>
+
+            <div class="table-responsive">
+                <table class="table custom-table table-hover mb-0 text-center">
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Subject</th>
+                            <th>Score</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in grade_rows %}
+                        <tr>
+                            <td class="fw-semibold text-start px-4">{{ row.course.name }}</td>
+                            <td>{{ row.subject.name }}</td>
+                            <td>{{ row.score }} / 100</td>
+                            <td><span class="fw-bold">{{ row.letter_grade }}</span></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-muted py-4">No grades recorded yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

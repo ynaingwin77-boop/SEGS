@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home - YHA Class{% endblock %}
+
+{% block content %}
+    <section class="hero-section container my-5 py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7 text-section">
+                <h1 class="main-title text-uppercase fw-bold display-5 mb-3" style="color: #111111; line-height: 1.2;">Shape Your Future<br>With Modern Education</h1>
+                <p class="main-description text-muted lead mb-4" style="font-size: 16px; line-height: 1.7;">
+                    Discover specialized technology courses tailored to help you excel. Learn from top professors and manage your academic path smoothly.
+                </p>
+                <a href="{% url 'courses' %}" class="btn text-white px-4 py-3 rounded-pill fw-semibold text-uppercase shadow-sm" style="background-color: #6561cc; font-size: 14px; text-decoration: none;">Explore Courses</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="courses-section bg-light py-5 border-top border-light">
+        <div class="container text-center py-4">
+            <h2 class="section-title fw-bold text-uppercase mb-2" style="color: #111111; font-size: 28px; letter-spacing: 0.5px;">Our Available Courses</h2>
+            <div class="mx-auto mb-5" style="width: 50px; height: 4px; background-color: #6561cc; border-radius: 2px;"></div>
+
+            <div class="row g-4 justify-content-center text-start">
+
+                {% for course in courses %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="home-course-card">
+                        <div>
+                            <span class="badge px-3 py-2 mb-3 rounded-pill fw-bold" style="background-color: #3b82f6; font-size: 12px; letter-spacing: 0.5px;">cs-00{{ course.course_id }}</span>
+                            <h4 class="card-title fw-bold text-uppercase mb-3" style="font-size: 20px; color: #111111; line-height: 1.4;">{{ course.name }}</h4>
+                            <p class="card-text text-muted" style="font-size: 14px; line-height: 1.6;">{{ course.description|default:"No description available yet." }}</p>
+                        </div>
+
+                        <div class="mt-4 pt-2">
+                            <div class="info-table">
+                                <div class="info-row">
+                                    <span class="info-label">Period:</span>
+                                    <span class="info-value">{{ course.period }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Starts:</span>
+                                    <span class="info-value">{{ course.start_date|date:"M d, Y"|default:"TBA" }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Available Seats:</span>
+                                    <span class="info-value" style="color: #3b82f6;">{{ course.seats_left }} / {{ course.seats_limit }} Seats left</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Course Fee:</span>
+                                    <span class="info-value text-success">${{ course.fees }}</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Instructor:</span>
+                                    <span class="info-value">
+                                        {% if course.instructor %}
+                                            <button type="button" class="instructor-link" data-bs-toggle="modal" data-bs-target="#instructorModal-{{ course.course_id }}">
+                                                {{ course.instructor.name }}
+                                            </button>
+                                        {% else %}
+                                            To Be Announced
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <a href="{% url 'course_enrollment' %}" class="btn text-white w-100 py-2 fw-bold text-uppercase shadow-sm" style="background-color: #3b82f6; border-radius: 14px; font-size: 14px; text-decoration: none; display: block; text-align: center;">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                {% if course.instructor %}
+                <div class="modal fade" id="instructorModal-{{ course.course_id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 24px; border: none; padding: 15px;">
+                            <div class="modal-header border-0 pb-0">
+                                <h5 class="modal-title fw-bold text-uppercase" style="font-size: 18px; color: #111111;">Instructor Profile</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body pt-3">
+                                <div class="text-center mb-4">
+                                    <h4 class="fw-bold text-primary mb-1">{{ course.instructor.name }}</h4>
+                                    <span class="badge bg-light text-muted px-3 py-1 rounded-pill fw-medium">Verified Faculty</span>
+                                </div>
+                                <div class="info-table m-0">
+                                    <div class="info-row">
+                                        <span class="info-label">Email Address:</span>
+                                        <span class="info-value text-secondary">{{ course.instructor.email }}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Contact Number:</span>
+                                        <span class="info-value text-secondary">{{ course.instructor.phone }}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Gender Role:</span>
+                                        <span class="info-value text-secondary">{{ course.instructor.get_gender_display }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% empty %}
+                <div class="col-12 text-center text-muted my-5">
+                    <p>No active courses displayed on homepage right now.</p>
+                </div>
+                {% endfor %}
+
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="{% url 'courses' %}" class="btn px-4 py-2 rounded-3 fw-semibold" style="color: #6561cc; border: 1px solid #6561cc; text-decoration: none; font-size: 15px;">See More</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Reset Password - YHA Class{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="mx-auto" style="max-width: 450px;">
+        <div class="bg-white rounded-4 shadow-sm p-4 border">
+            <h4 class="fw-bold text-center mb-3">Set a New Password</h4>
+
+            <form method="POST" action="{% url 'reset_password' token %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label" style="font-size: 14px;">New Password</label>
+                    <input type="password" class="form-control" name="new_password" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" style="font-size: 14px;">Confirm New Password</label>
+                    <input type="password" class="form-control" name="confirm_password" required>
+                </div>
+                <button type="submit" class="btn text-white w-100 rounded-pill" style="background-color: var(--primary-brand, #6561cc);">Reset Password</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

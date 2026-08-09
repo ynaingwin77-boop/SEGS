@@ -1,0 +1,317 @@
+/* ==================== 1. GENERAL STYLES ==================== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    overflow-x: hidden;
+}
+
+:root {
+    --primary-brand: #6561cc; /* မိတ်ဆွေ၏ Theme ခရမ်းရောင် */
+    --accent-blue: #3b82f6;   /* ကတ်ပြားများအတွက် အပြာရောင် */
+    --bg-light: #f3f4f6;
+}
+
+/* ==================== 2. NAVIGATION BAR ==================== */
+.custom-navbar {
+    padding: 20px 0;
+    background-color: #ffffff;
+}
+
+.web-logo img {
+    height: 45px; /* Logo အရွယ်အစား ထိန်းရန် */
+    object-fit: contain;
+}
+
+.menu .nav-link {
+    font-size: 16px;
+    font-weight: 500;
+    color: #555555 !important;
+    margin: 0 15px;
+    transition: color 0.2s ease;
+}
+
+.menu .nav-link:hover, .menu .nav-link.active {
+    color: var(--primary-brand) !important; /* Active & Hover အရောင် */
+    font-weight: 600;
+}
+
+.btn-signin {
+    background-color: var(--primary-brand);
+    color: white !important;
+    font-weight: 600;
+    padding: 8px 24px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.btn-signin:hover {
+    background-color: #534fbd;
+    box-shadow: 0 4px 12px rgba(101, 97, 204, 0.2);
+}
+
+/* ==================== 3. HERO SECTION ==================== */
+.hero-section {
+    padding: 80px 0;
+}
+
+.main-title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #111111;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.main-description {
+    font-size: 16px;
+    color: #666666;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    max-width: 580px;
+}
+
+.btn-explore {
+    background-color: var(--primary-brand);
+    color: white !important;
+    font-weight: 600;
+    padding: 12px 32px;
+    border-radius: 25px;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+
+.btn-explore:hover {
+    background-color: #534fbd;
+    box-shadow: 0 6px 18px rgba(101, 97, 204, 0.3);
+}
+
+.hero-profile-img {
+    max-height: 420px;
+    object-fit: contain;
+}
+
+/* ==================== 4. COURSES SECTION & CARDS ==================== */
+.courses-section {
+    padding: 80px 0;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    color: #777777;
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto 50px auto;
+}
+
+/* Modern Course Card Definition */
+.course-card {
+    width: 100%;
+    max-width: 360px;
+    background-color: #e5e5e7;
+    border-radius: 28px;
+    padding: 24px;
+    text-align: left;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.course-badge {
+    display: inline-block;
+    background-color: var(--accent-blue);
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 4px 14px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    align-self: flex-start;
+}
+
+.course-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.course-desc {
+    font-size: 14px;
+    font-weight: 500;
+    color: #7a7c81;
+    line-height: 1.4;
+    margin-bottom: 24px;
+}
+
+.course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1.5px solid #bdc0c5;
+    padding-top: 16px;
+}
+
+.seats-left {
+    color: var(--accent-blue);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.enroll-btn {
+    background-color: var(--accent-blue);
+    color: white !important;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 6px 22px;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.enroll-btn:hover {
+    background-color: #2563eb;
+}
+
+.btn-see-more {
+    background-color: var(--primary-brand);
+    color: white !important;
+    font-weight: 600;
+    padding: 10px 30px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.btn-see-more:hover {
+    background-color: #534fbd;
+}
+
+/* ==================== 5. ABOUT PAGE SPECIFIC STYLES ==================== */
+/* About Hero Intro Wrapper */
+.about-hero-bg {
+    background: linear-gradient(135deg, #ffffff 0%, var(--bg-light) 100%);
+    border-radius: 24px;
+    padding: 50px 20px;
+}
+
+/* Mission Box configuration */
+.mission-box {
+    background-color: #ffffff;
+    border-left: 5px solid var(--primary-brand);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+/* Key Features - Feature Cards Layout */
+.about-feature-card {
+    background: #ffffff;
+    border: none;
+    border-radius: 24px;
+    padding: 32px;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.about-feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(101, 97, 204, 0.12); /* ခရမ်းရောင် Glow ထွက်စေရန် */
+}
+
+.about-feature-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111111;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+}
+
+.about-feature-card p {
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+
+/* ==========================================================================
+   ABOUT PAGE CUSTOM STYLES (Figma Page 3)
+   ========================================================================== */
+
+/* 1. Global Custom Variables (ပင်မ ခရမ်းရောင် Theme) */
+:root {
+    --primary-brand: #6561cc;   /* Figma Brand Purple Color */
+    --accent-blue: #3b82f6;     /* Link or Button Blue */
+    --text-dark: #111111;
+    --text-muted: #6b7280;
+    --bg-light: #f8f9fa;
+}
+
+/* 2. About Hero Section Banner */
+.about-hero-bg {
+    background: linear-gradient(135deg, rgba(101, 97, 204, 0.08) 0%, rgba(59, 130, 246, 0.04) 100%);
+    padding: 60px 20px;
+    border-radius: 32px;
+    border: 1px solid rgba(101, 97, 204, 0.1);
+}
+
+.about-hero-bg h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+/* 3. Our Mission Box Styling */
+.mission-box {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    border-left: 5px solid var(--primary-brand); /* ဘယ်ဘက်က ခရမ်းရောင်လိုင်း */
+}
+
+/* 4. Key Feature Cards (EASY ENROLLMENT, GRADING SYSTEM, EASY DASHBOARD) */
+.about-feature-card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 30px;
+    border: 1px solid #edf0f5;
+    height: 100%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Card ကို Mouse တင်လိုက်လျှင် ခရမ်းရောင် Glow ထွက်ပြီး ကြွတက်လာမည့် Highlight အကျိုးသက်ရောက်မှု */
+.about-feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(101, 97, 204, 0.12);
+    border-color: rgba(101, 97, 204, 0.2);
+}
+
+.about-feature-card h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 10px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.about-feature-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0;
+}

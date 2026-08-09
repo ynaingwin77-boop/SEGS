@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}About - YHA Class{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+
+        <div class="about-hero-bg text-center px-4 mb-5">
+            <h1 class="display-5 fw-bold mb-3">About Yha Class</h1>
+            <p class="lead text-muted mx-auto mb-0" style="max-width: 750px; font-size: 16px;">
+                A comprehensive digital platform designed to streamline student enrollment and academic grade management seamlessly.
+            </p>
+        </div>
+
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-12">
+                <div class="mission-box">
+                    <h5 class="fw-bold text-uppercase tracking-wider mb-2" style="color: var(--primary-brand, #6561cc); font-size: 0.9rem;">Our Mission</h5>
+                    <p class="mb-0 text-secondary" style="text-align: justify; line-height: 1.7; font-size: 15px;">
+                        Our mission is to empower educational institutions with efficient, secure, and user-friendly technology. We aim to bridge the gap between students, faculty, and administrators by providing real-time access to accurate academic records and simplified course registration.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h2 class="fw-bold text-uppercase" style="color: #111111; letter-spacing: 0.5px; font-size: 24px;">KEY FEATURES</h2>
+            <div class="rounded mt-2" style="width: 50px; height: 4px; background-color: var(--primary-brand, #6561cc);"></div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card about-feature-card">
+                    <div class="mb-3 fs-2">📝</div>
+                    <h3>EASY ENROLLMENT</h3>
+                    <p>Allows students to browse available courses and enroll in their selected subjects within seconds.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card about-feature-card">
+                    <div class="mb-3 fs-2">📊</div>
+                    <h3>GRADING SYSTEM</h3>
+                    <p>Enables instructors to input marks smoothly while the system automatically calculates final letter grades.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card about-feature-card">
+                    <div class="mb-3 fs-2">💻</div>
+                    <h3>EASY DASHBOARD</h3>
+                    <p>Gives students a clear, real-time view of their enrolled courses, scores, and progress.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
